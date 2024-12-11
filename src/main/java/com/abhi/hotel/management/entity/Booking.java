@@ -22,7 +22,7 @@ public class Booking {
     private LocalDate checkOutDate;
 
     private Integer numOfAdults;
-    private Integer numOfChild;
+    private Integer numOfChildren;
     private Integer totalNumOfGuests;
     private String bookingConfirmationCode;
 
@@ -33,4 +33,32 @@ public class Booking {
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "room_id")
     private Room room;
+
+    public void calculateTotalNumberOfGuests(){
+        this.totalNumOfGuests = this.numOfAdults + this.numOfChildren;
+    }
+
+    public void setNumOfAdults(Integer numOfAdults) {
+        this.numOfAdults = numOfAdults;
+        calculateTotalNumberOfGuests();
+    }
+
+    public void setNumOfChildren(Integer numOfChildren) {
+        this.numOfChildren = numOfChildren;
+        calculateTotalNumberOfGuests();
+    }
+
+
+    @Override
+    public String toString() {
+        return "Booking{" +
+                "id=" + id +
+                ", checkInDate=" + checkInDate +
+                ", checkOutDate=" + checkOutDate +
+                ", numOfAdults=" + numOfAdults +
+                ", numOfChildren=" + numOfChildren +
+                ", totalNumOfGuests=" + totalNumOfGuests +
+                ", bookingConfirmationCode='" + bookingConfirmationCode + '\'' +
+                '}';
+    }
 }
